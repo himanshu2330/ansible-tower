@@ -1,0 +1,9 @@
+---
+- hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+  - name: Run a script
+    script: workload_migration.sh
+    register: test
+
