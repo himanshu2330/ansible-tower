@@ -3,7 +3,14 @@
   connection: local
   gather_facts: no
   tasks:
-  - name: Run a script
-    script: workload_migration.sh
-    register: test
+  - name: Remove workload directory
+    file:
+      path: /opt/git_repo/ansible-tower-workload/workload-migration-new
+      state: absent
 
+  - git:
+      repo: https://github.com/himanshu2330/workload-migration-new.git
+      dest: /opt/git_repo/ansible-tower-workload/workload-migration-new
+
+  - name: calling main.yaml file 
+    shell: $(cd /opt/git_repo/ansible-tower-workload/workload-migration-new/ ; sh start_workload_migration.sh)
