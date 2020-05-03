@@ -1,6 +1,5 @@
 ---
-- hosts: all
-  connection: local
+- hosts: localhost
   gather_facts: no
   tasks:
   - name: Remove workload directory
@@ -14,3 +13,5 @@
 
   - name: calling main.yaml file 
     shell: $(cd /opt/git_repo/ansible-tower-workload/workload-migration-new/ ; sh start_workload_migration.sh)
+    register: test
+    failed_when: test.rc == 1 and test.rc == 0
